@@ -6,14 +6,15 @@ options:
   - text: "因為要避免 Write Amplification 和提高快取利用率"
     correct: true
     explanation: |
-      Explain WHY this is correct. Show the reasoning or calculation.
-  - text: "Second option (a plausible wrong answer)"
+      資料庫寫入是以 Page 為單位，若 Page 設為 1 MB，即使只修改 100 bytes 的資料也必須重寫整個 1 MB 區塊，會造成嚴重的 WA。
+      同時，記憶體快取空間有限，較小的 Page 能存放更多不同範圍的索引，提升隨機讀取的快取命中率。
+  - text: "因為快取記憶體無法儲存大於 4KB 的資料"
     explanation: |
-      Explain the misconception this represents.
-      Why might a student pick this?
-  - text: "因為 CPU 無法處理大於 16KB 的資料運算"
+      干擾選項，現代記憶體可以儲存連續數 MB 甚至 GB 等級的資料。
+  - text: "因為 CPU 無法處理大於 4KB 的資料運算"
     explanation: |
-      Explain what's wrong and what it would be correct for.
+      CPU 的暫存器與快取雖然較小，但可以透過分段讀取處理任意大小的資料。
+      而太大的 Page 會讓 CPU 浪費更多時間在等待資料搬移上。
   - text: "因為 B+Tree 規定樹高不能低於三層"
     explanation: |
-      Explain the error in reasoning.
+      B+Tree 的樹高完全取決於資料總量與 Fan-out，並沒有規定其最小高度。
